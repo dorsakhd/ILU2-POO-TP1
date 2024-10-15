@@ -26,18 +26,21 @@ public class Etal {
 	}
 
 	public String libererEtal() {
-		etalOccupe = false;
-		StringBuilder chaine = new StringBuilder(
-				"Le vendeur " + vendeur.getNom() + " quitte son étal, ");
-		int produitVendu = quantiteDebutMarche - quantite;
-		if (produitVendu > 0) {
-			chaine.append(
-					"il a vendu " + produitVendu + " parmi " + produit + ".\n");
-		} else {
-			chaine.append("il n'a malheureusement rien vendu.\n");
-		}
-		return chaine.toString();
+	    if (!etalOccupe) {
+	        throw new EtalNonOccupeException("L'étal n'est pas occupé !");
+	    }
+	    etalOccupe = false;
+	    StringBuilder chaine = new StringBuilder(
+	            "Le vendeur " + vendeur.getNom() + " quitte son étal, ");
+	    int produitVendu = quantiteDebutMarche - quantite;
+	    if (produitVendu > 0) {
+	        chaine.append("il a vendu " + produitVendu + " parmi " + produit + ".\n");
+	    } else {
+	        chaine.append("il n'a malheureusement rien vendu.\n");
+	    }
+	    return chaine.toString();
 	}
+
 
 	public String afficherEtal() {
 		if (etalOccupe) {
@@ -48,7 +51,22 @@ public class Etal {
 	}
 
 	public String acheterProduit(int quantiteAcheter, Gaulois acheteur) {
-		if (etalOccupe) {
+		if (acheteur == null) {
+	        try {
+	            throw new NullPointerException("L'acheteur ne peut pas être null !");
+	        } catch (NullPointerException e) {
+	            e.printStackTrace(); 
+	            return ""; 
+	        }
+	    }
+
+	    if (quantiteAcheter < 1) {
+	        throw new IllegalArgumentException("La quantité doit être positive !");
+	    }
+
+	    if (!etalOccupe) {
+	        throw new IllegalStateException("L'étal n'est pas occupé !");
+	    }
 			StringBuilder chaine = new StringBuilder();
 			chaine.append(acheteur.getNom() + " veut acheter " + quantiteAcheter
 					+ " " + produit + " à " + vendeur.getNom());
@@ -71,8 +89,6 @@ public class Etal {
 			}
 			return chaine.toString();
 		}
-		return null;
-	}
 
 	public boolean contientProduit(String produit) {
 		return produit.equals(this.produit);
