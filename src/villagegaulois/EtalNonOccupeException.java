@@ -1,7 +1,23 @@
 package villagegaulois;
 
 public class EtalNonOccupeException extends RuntimeException {
-    public EtalNonOccupeException(String message) {
+   
+	private static final long serialVersionUID = 1L;
+	
+	public EtalNonOccupeException() {
+        super();
+    }
+	
+	public EtalNonOccupeException(String message) {
         super(message);
     }
+	
+	public EtalNonOccupeException(Throwable cause) {
+        super(cause);
+    }
+	
+	public EtalNonOccupeException(String message , Throwable cause) {
+        super(message,cause);
+    }
+	
 }

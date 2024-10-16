@@ -15,11 +15,10 @@ public class ScenarioCasDegrade {
         try {
             etal.libererEtal();
         } catch (EtalNonOccupeException e) {
-            System.out.println(e.getMessage()); 
+        	e.printStackTrace(); 
         }
 
         etal.occuperEtal(bonemine, "fleurs", 10);
-
         try {
             etal.acheterProduit(5, null); 
         } catch (NullPointerException e) {
@@ -29,28 +28,28 @@ public class ScenarioCasDegrade {
         try {
             etal.acheterProduit(0, abraracourcix); 
         } catch (IllegalArgumentException e) {
-            System.err.println("Erreur : " + e.getMessage());
+        	e.printStackTrace(); 
         }
 
         Etal etalInoccupe = new Etal();
         try {
             etalInoccupe.acheterProduit(5, abraracourcix); 
         } catch (IllegalStateException e) {
-            System.err.println("Erreur : " + e.getMessage());
+        	e.printStackTrace(); 
         }
 
         try {
             String resultat = etal.acheterProduit(5, abraracourcix);
             System.out.println(resultat);
         } catch (Exception e) {
-            System.err.println("Erreur inattendue : " + e.getMessage());
+        	e.printStackTrace(); 
         }
         Village village = new Village("Le village des irréductibles", 10, 5);
 
         try {
             System.out.println(village.afficherVillageois());
         } catch (VillageSansChefException e) {
-            System.err.println("Erreur : " + e.getMessage());
+        	e.printStackTrace();
         }
 
         System.out.println("Fin du test");
